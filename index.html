@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Video Speed Controller</title>
+</head>
+
+<body>
+  <div id="wrapper">
+    <video src="Unboxing The $3000 Bluetooth Speaker.mp4" controls loop autoplay></video>
+    <div id="speed-wrapper">
+      <div id="speed-bar">1x</div>
+    </div>
+  </div>
+
+  <script>
+    const speedBarParent = document.getElementById("speed-wrapper");
+    const speedBar = document.getElementById("speed-bar");
+    const video = document.getElementsByTagName('video')[0];
+    let isMouseDown = false;
+
+    const mousedown = e => {
+      isMouseDown = true;
+      startX = e.pageX;
+      scrollLeftVar = speedBarParent.scrollLeft;
+    }
+
+    function manageVideoSpeed(e) {
+      // Uncomment the row below for mousedown + mousemove to work
+      // if(!isMouseDown) return;
+
+      e.stopPropagation();
+      e.preventDefault();
+      const y = e.pageY - this.offsetTop;
+      const percentage = y / this.offsetHeight;
+      const height = Math.round(percentage * 100) + "%";
+      const min = 0.7;
+      const max = 4;
+      const playbackRate = percentage * (max - min) + min;
+
+      speedBar.style.height = height;
+      speedBar.textContent = playbackRate.toFixed(2) + 'x';
+      video.playbackRate = playbackRate;
+    }
+
+    // Uncomment next 3 rows for mousedown + mousemove to work
+    // speedBarParent.addEventListener("mouseleave", () => (isMouseDown = false));
+    // speedBarParent.addEventListener("mouseup", () => (isMouseDown = false));
+    // speedBarParent.addEventListener("mousedown", mousedown);
+    speedBarParent.addEventListener("mousemove", manageVideoSpeed);
+  </script>
+
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      background-color: black;
+      color: #bababa;
+    }
+
+    #wrapper {
+      display: flex;
+      justify-content: space-evenly;
+      padding-top: 1em;
+      width: 100%;
+      height: 50%;
+    }
+
+    video {
+      width: 93%;
+    }
+
+    #speed-wrapper {
+      display: flex;
+      border: 1px solid red;
+      border-radius: 3em;
+      overflow: hidden;
+      user-select: none;
+      cursor: pointer;
+      width: 5%;
+    }
+
+    #speed-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3em;
+      height: 9%;
+      background-color: blue;
+      width: 100%;
+      font-size: 2vw;
+    }
+  </style>
+</body>
+
+</html>
