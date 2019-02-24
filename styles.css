@@ -1,0 +1,42 @@
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    color: #bababa;
+  }
+
+  #wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 1em;
+    width: 100%;
+    height: 50%;
+  }
+
+  video {
+    width: 93%;
+  }
+
+  #speed-wrapper {
+    display: flex;
+    border: 1px solid red;
+    border-radius: 3em;
+    overflow: hidden;
+    user-select: none;
+    cursor: pointer;
+    width: 5%;
+  }
+
+  #speed-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3em;
+    height: 9%;
+    background-color: blue;
+    width: 100%;
+    font-size: 2vw;
+  }
